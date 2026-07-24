@@ -3,355 +3,407 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
 <title>Roald Dahl's Willy Wonka KIDS — Program</title>
 <meta name="description" content="Program for Roald Dahl's Willy Wonka KIDS — cast, musical numbers, and credits.">
 <style>
   :root{
-    --choc:#2b1a10;
-    --choc-deep:#1a120b;
-    --cream:#fdf6e6;
-    --cream-soft:#fffdf7;
-    --gold:#d9a531;
-    --gold-bright:#f2c94c;
-    --purple:#5b2a86;
-    --purple-soft:#7a45ab;
-    --ink:#33261b;
-    --muted:#7a6a58;
-    --card:#fffdf7;
-    --line:rgba(43,26,16,.12);
-    --shadow:0 6px 22px rgba(43,26,16,.10);
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --cream:#160f08;
-      --cream-soft:#211710;
-      --ink:#f3e7d3;
-      --muted:#b6a488;
-      --card:#211710;
-      --line:rgba(242,201,76,.16);
-      --shadow:0 6px 22px rgba(0,0,0,.45);
-    }
+    /* brand */
+    --purple:#4a2278;
+    --purple-lite:#7a44b0;
+    --purple-deep:#2b1450;
+    --purple-ink:#3a1c66;
+    --gold:#e8b93a;
+    --gold-bright:#f7d878;
+    --gold-deep:#b9821c;
+    --gold-text:#9c6e12;
+    --cyan:#45d3d6;
+    --cyan-deep:#2aa9ac;
+    /* surfaces */
+    --paper:#fdf6e6;
+    --paper-2:#fffdf7;
+    --ink:#2b1a0e;
+    --ink-soft:#5e4a2f;
+    --lav:#efe6ff;
+    --lav-soft:#c9b8e6;
+    --line:rgba(43,26,14,.14);
+    --shadow:0 12px 30px rgba(20,8,45,.34);
+    --shadow-sm:0 4px 14px rgba(20,8,45,.22);
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    font-family:"Georgia","Iowan Old Style",Cambria,"Times New Roman",serif;
-    background:var(--cream);
-    color:var(--ink);
-    line-height:1.6;
+    font-family:"Iowan Old Style","Palatino Linotype","Georgia",serif;
+    color:var(--lav);
+    line-height:1.55;
+    background:var(--purple);
     -webkit-text-size-adjust:100%;
   }
-
-  /* ---- candy stripe accent ---- */
-  .stripe{
-    height:8px;
-    background:repeating-linear-gradient(
-      45deg,
-      var(--purple) 0 14px,
-      var(--gold-bright) 14px 28px
-    );
+  /* hypnotic swirl backdrop, fixed behind everything */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;
+    background:
+      repeating-conic-gradient(from 208deg at 50% -22%, rgba(255,255,255,.055) 0 4deg, rgba(255,255,255,0) 4deg 9deg),
+      repeating-conic-gradient(from 212deg at 50% -22%, rgba(0,0,0,.10) 0 4.5deg, rgba(0,0,0,0) 4.5deg 9.5deg),
+      radial-gradient(135% 105% at 50% -8%, #814fc0 0%, #4a2278 46%, #24103f 100%);
   }
+  .heading{font-family:"Arial Rounded MT Bold","Trebuchet MS","Segoe UI",system-ui,sans-serif;}
+  .kicker{
+    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    text-transform:uppercase;letter-spacing:4px;font-weight:700;font-size:12px;
+  }
+
+  .stripe{height:8px;
+    background:repeating-linear-gradient(45deg,var(--gold) 0 14px,var(--purple-deep) 14px 20px,var(--cyan) 20px 34px,var(--purple-deep) 34px 40px);}
 
   /* ---- sticky top bar ---- */
   header.bar{
-    position:sticky;top:0;z-index:50;
+    position:sticky;top:0;z-index:60;
     display:flex;align-items:center;justify-content:space-between;gap:12px;
-    padding:10px 16px;
-    background:var(--choc-deep);
-    color:var(--gold-bright);
-    box-shadow:0 2px 10px rgba(0,0,0,.25);
+    padding:11px 16px;
+    background:rgba(30,14,58,.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,255,255,.10);
   }
   header.bar .brand{
-    font-size:15px;font-weight:700;letter-spacing:.3px;
-    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
-    color:var(--gold-bright);
-  }
+    display:flex;align-items:center;gap:9px;
+    font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+    font-weight:800;font-size:15px;color:var(--gold-bright);}
+  header.bar .brand svg{width:22px;height:22px;flex:none;color:var(--cyan);}
   .donate-btn{
-    flex:none;
-    display:inline-block;
-    background:var(--gold-bright);
-    color:var(--choc-deep);
+    flex:none;display:inline-flex;align-items:center;gap:6px;
+    background:linear-gradient(180deg,var(--gold-bright),var(--gold));
+    color:var(--purple-deep);
     font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
-    font-weight:700;font-size:14px;
-    text-decoration:none;
-    padding:8px 16px;border-radius:999px;
-    box-shadow:0 2px 0 var(--gold);
-    white-space:nowrap;
-  }
+    font-weight:800;font-size:14px;text-decoration:none;
+    padding:9px 18px;border-radius:999px;
+    box-shadow:0 3px 0 var(--gold-deep),0 0 0 1px rgba(255,255,255,.25) inset;}
   .donate-btn:active{transform:translateY(1px);box-shadow:none;}
+  .donate-btn svg{width:15px;height:15px;}
 
-  /* ---- layout ---- */
-  main{max-width:760px;margin:0 auto;padding:0 18px 64px;}
+  main{max-width:720px;margin:0 auto;padding:0 16px 56px;}
 
-  .hero{
-    text-align:center;
-    padding:40px 12px 28px;
+  /* ---- HERO ---- */
+  .hero{position:relative;padding:44px 6px 26px;text-align:center;}
+  .hero .pre{color:var(--lav);opacity:.92;margin:0 0 14px;}
+  .logo{display:block;width:min(90%,540px);height:auto;margin:2px auto 0;}
+  .logo text{font-family:"Arial Rounded MT Bold","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    font-weight:900;}
+  .logo .l1{display:block;}
+  .logo .l2{display:block;}
+  .kids{
+    display:inline-block;margin-top:20px;
+    font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+    font-weight:900;letter-spacing:7px;font-size:17px;
+    color:var(--gold-bright);
+    background:rgba(20,8,45,.55);
+    border:2px solid var(--cyan);
+    padding:7px 16px 7px 23px;border-radius:999px;
+    box-shadow:0 0 16px rgba(69,211,214,.45);
   }
-  .hero .kicker{
-    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
-    text-transform:uppercase;letter-spacing:3px;font-size:12px;
-    color:var(--purple-soft);font-weight:700;margin:0 0 10px;
-  }
-  .hero h1{
-    margin:0;
-    font-size:clamp(30px,9vw,52px);
-    line-height:1.05;
-    color:var(--ink);
-  }
-  .hero h1 .wonka{
-    display:block;
-    color:var(--gold);
-    text-shadow:0 1px 0 rgba(0,0,0,.15);
-  }
-  .hero .kids{
-    display:inline-block;margin-top:12px;
-    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
-    font-weight:700;letter-spacing:2px;font-size:14px;
-    color:var(--choc-deep);background:var(--gold-bright);
-    padding:4px 14px;border-radius:999px;
-  }
+  .spark{position:absolute;color:#fff;filter:drop-shadow(0 0 6px rgba(69,211,214,.9));}
+  .spark svg{width:100%;height:100%;display:block;}
+  .s1{width:26px;height:26px;top:60px;left:12%;}
+  .s2{width:38px;height:38px;top:34px;right:12%;}
+  .s3{width:20px;height:20px;top:150px;right:20%;}
+  .s4{width:16px;height:16px;top:120px;left:22%;}
 
+  /* ---- section cards ---- */
   section.card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:22px 20px;
-    margin:18px 0;
+    background:var(--paper-2);
+    border:1px solid rgba(255,255,255,.5);
+    border-radius:18px;
+    padding:22px 20px;margin:20px 0;
+    color:var(--ink);
     box-shadow:var(--shadow);
   }
   h2.sec{
-    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
-    font-size:20px;letter-spacing:.5px;
-    margin:0 0 4px;color:var(--purple);
     display:flex;align-items:center;gap:10px;
-  }
-  h2.sec::before{content:"";width:22px;height:22px;flex:none;
-    background:var(--gold-bright);
-    -webkit-mask:radial-gradient(circle at 50% 50%,#000 42%,transparent 44%) center/100% 100%;
-    mask:radial-gradient(circle at 50% 50%,#000 42%,transparent 44%);
-    border-radius:50%;
-    box-shadow:inset 0 0 0 3px var(--gold);
-  }
-  h2.sec::before{content:"🎟️";background:none;mask:none;-webkit-mask:none;
-    box-shadow:none;border-radius:0;font-size:18px;line-height:22px;}
-  .sec-rule{height:2px;background:var(--line);border:0;margin:12px 0 16px;}
+    font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+    font-size:23px;font-weight:800;letter-spacing:.2px;
+    margin:0;color:var(--purple);}
+  h2.sec svg{width:24px;height:24px;flex:none;color:var(--gold-deep);}
+  .sec-rule{height:3px;border:0;margin:12px 0 18px;border-radius:3px;
+    background:linear-gradient(90deg,var(--gold),var(--cyan) 55%,var(--purple));}
 
-  .team-role{margin:2px 0;}
-  .team-role .label{color:var(--muted);font-weight:700;
-    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:13px;}
+  .lead-names{font-size:18px;font-weight:700;text-align:center;margin:0 0 16px;color:var(--ink);}
+  .crew{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:baseline;}
+  .crew dt{font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    font-weight:800;font-size:12px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--gold-text);text-align:right;white-space:nowrap;}
+  .crew dd{margin:0;font-weight:600;}
+  .subhead{font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    font-weight:800;font-size:13px;letter-spacing:1.6px;text-transform:uppercase;
+    color:var(--purple);margin:20px 0 8px;display:flex;align-items:center;gap:10px;}
+  .subhead::before,.subhead::after{content:"";height:1px;background:var(--line);flex:1;}
+  .thanks{text-align:center;margin:4px 0;}
 
-  /* musical numbers */
-  ol.songs{list-style:none;margin:0;padding:0;counter-reset:song;}
-  ol.songs li{
-    padding:12px 0;border-bottom:1px dashed var(--line);
-    counter-increment:song;
-  }
+  .credits{text-align:center;}
+  .credits p{margin:10px 0;}
+  .credits .big{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+    font-weight:800;font-size:18px;color:var(--purple);}
+  .credits .label{color:var(--ink-soft);font-size:14px;}
+  .credits .em{font-weight:700;color:var(--ink);}
+
+  ol.songs{list-style:none;margin:0;padding:0;}
+  ol.songs li{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);}
   ol.songs li:last-child{border-bottom:0;}
-  ol.songs .title{
-    font-weight:700;color:var(--ink);
-    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
-  }
-  ol.songs .title::before{
-    content:counter(song)". ";color:var(--gold);
-  }
-  ol.songs .who{display:block;color:var(--muted);font-size:15px;margin-top:2px;}
+  .song-no{flex:none;width:31px;height:31px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold-bright),var(--gold));
+    color:var(--purple-deep);font-weight:900;font-size:15px;
+    display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm);
+    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;}
+  .song-title{font-family:"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+    font-weight:800;font-size:17px;color:var(--ink);}
+  .song-who{color:var(--ink-soft);font-size:15px;margin-top:2px;}
 
-  /* cast table */
-  .cast-note{color:var(--muted);font-size:13px;
-    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
-    text-transform:uppercase;letter-spacing:1.5px;margin:0 0 10px;
-    display:flex;justify-content:space-between;gap:10px;}
-  ul.cast{list-style:none;margin:0;padding:0;}
-  ul.cast li{
-    display:flex;justify-content:space-between;gap:14px;
-    padding:9px 0;border-bottom:1px dashed var(--line);
-    align-items:baseline;
-  }
-  ul.cast li:last-child{border-bottom:0;}
-  ul.cast .name{font-weight:700;flex:1 1 auto;}
-  ul.cast .role{color:var(--purple);text-align:right;flex:0 1 auto;
+  .cast-wrap{overflow-x:auto;}
+  table.cast{width:100%;border-collapse:collapse;}
+  table.cast th{font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    font-size:12px;letter-spacing:1.6px;text-transform:uppercase;
+    color:var(--gold-text);text-align:left;font-weight:800;
+    padding:6px 10px;border-bottom:2px solid var(--gold);}
+  table.cast td{padding:10px;vertical-align:top;border-bottom:1px solid var(--line);}
+  table.cast tbody tr:nth-child(even){background:rgba(74,34,120,.06);}
+  table.cast .nm{font-weight:700;color:var(--ink);width:50%;}
+  table.cast .rl{color:var(--ink-soft);width:50%;
     font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:15px;}
-  .fn{color:var(--gold);font-weight:700;}
+  sup.fn{color:var(--cyan-deep);font-weight:800;font-size:.7em;padding-left:2px;}
 
-  .ensemble p{margin:6px 0 0;}
-  .ensemble .group{font-weight:700;color:var(--ink);
-    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
-    display:block;margin-top:14px;}
+  .ensemble-block p{margin:0;line-height:1.7;}
+  .ensemble-lead{font-weight:700;color:var(--ink);}
+  .footnotes{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);
+    font-size:14px;color:var(--ink-soft);}
+  .footnotes div{margin:5px 0;display:flex;gap:8px;}
+  .footnotes sup{color:var(--cyan-deep);font-weight:800;}
 
-  .footnotes{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
-    font-size:14px;color:var(--muted);}
-  .footnotes div{margin:4px 0;}
-
-  .credits{text-align:center;color:var(--muted);font-size:14px;}
-  .credits strong{color:var(--ink);}
-  .credits a{color:var(--purple);}
-
-  /* donate */
+  /* ---- donate: purple brand panel ---- */
   #donate{
-    text-align:center;
-    background:linear-gradient(160deg,var(--choc) 0%,var(--choc-deep) 100%);
-    color:var(--cream-soft);
-    border:0;
-  }
-  #donate h2.sec{color:var(--gold-bright);justify-content:center;}
-  #donate .sec-rule{background:rgba(242,201,76,.25);}
-  #donate p{color:#f0e4cf;}
-  .qr-card{
-    background:#fff;display:inline-block;padding:16px;border-radius:16px;
-    margin:16px auto 8px;box-shadow:0 8px 24px rgba(0,0,0,.35);
-  }
-  .qr-card svg{width:180px;height:180px;display:block;}
-  .venmo-link{
-    display:inline-block;margin-top:8px;
-    background:var(--gold-bright);color:var(--choc-deep);
-    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;font-weight:700;
-    text-decoration:none;padding:12px 22px;border-radius:999px;font-size:16px;
-    box-shadow:0 3px 0 var(--gold);
-  }
+    background:radial-gradient(120% 120% at 50% 0%, #6a3aa4 0%, #43206f 55%, #2b1450 100%);
+    border:2px solid var(--cyan);
+    box-shadow:0 0 30px rgba(69,211,214,.25),var(--shadow);
+    color:var(--lav);text-align:center;}
+  #donate .kicker{color:var(--cyan);margin:0 0 10px;display:flex;align-items:center;justify-content:center;gap:10px;}
+  #donate .kicker svg{width:15px;height:15px;}
+  #donate h2.sec{color:var(--gold-bright);justify-content:center;
+    text-shadow:0 0 16px rgba(69,211,214,.4);}
+  #donate .sec-rule{background:linear-gradient(90deg,var(--cyan),var(--gold),var(--cyan));}
+  #donate p{color:var(--lav);}
+  .qr-card{background:#fff;display:inline-block;padding:16px;border-radius:16px;
+    margin:16px auto 12px;box-shadow:0 0 0 3px rgba(69,211,214,.5),0 10px 24px rgba(0,0,0,.4);}
+  .qr-card svg{width:190px;height:190px;display:block;}
+  .venmo-link{display:inline-flex;align-items:center;gap:8px;margin-top:4px;
+    background:linear-gradient(180deg,var(--gold-bright),var(--gold));color:var(--purple-deep);
+    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;font-weight:800;
+    text-decoration:none;padding:13px 24px;border-radius:999px;font-size:16px;
+    box-shadow:0 4px 0 var(--gold-deep);}
   .venmo-link:active{transform:translateY(1px);box-shadow:none;}
-  .handle{font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
-    letter-spacing:.5px;}
+  .venmo-link svg{width:20px;height:20px;}
 
-  footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 16px 8px;
+  footer{text-align:center;color:var(--lav-soft);font-size:12px;padding:26px 16px 6px;
     font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;}
 </style>
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-ticket" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="1.7" d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 0 0 4 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2 2 2 0 0 0 0-4Z"/>
+      <path stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M14 6v2m0 3v2m0 3v2"/>
+    </symbol>
+    <symbol id="i-note" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M9 18V6l10-2v11"/>
+      <circle cx="6.5" cy="18" r="2.6" fill="currentColor"/>
+      <circle cx="16.5" cy="15" r="2.6" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <path fill="currentColor" d="m12 2 2.9 6.1 6.6.8-4.9 4.5 1.3 6.6L12 17.8 6.1 20.6l1.3-6.6L2.5 8.9l6.6-.8Z"/>
+    </symbol>
+    <symbol id="i-people" viewBox="0 0 24 24">
+      <circle cx="8" cy="8" r="3.2" fill="currentColor"/>
+      <circle cx="16.5" cy="9" r="2.6" fill="currentColor"/>
+      <path fill="currentColor" d="M2.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5v.5h-11Z"/>
+      <path fill="currentColor" d="M14.5 19c0-2 1-3.6 2.4-4.4 2.4-.1 4.6 1.6 4.6 4.4v.5h-7Z"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 21s-7-4.6-9.3-9C1.2 9 2.6 5.5 6 5.5c2 0 3.2 1.2 4 2.4.8-1.2 2-2.4 4-2.4 3.4 0 4.8 3.5 3.3 6.5C19 16.4 12 21 12 21Z"/>
+    </symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 0c1.1 6.6 4.4 9.9 12 12-7.6 2.1-10.9 5.4-12 12-1.1-6.6-4.4-9.9-12-12 7.6-2.1 10.9-5.4 12-12Z"/>
+    </symbol>
+  </defs>
+</svg>
+
 <div class="stripe" aria-hidden="true"></div>
 <header class="bar">
-  <span class="brand">🍫 Willy Wonka KIDS</span>
-  <a class="donate-btn" href="#donate">Donate ♥</a>
+  <span class="brand"><svg><use href="#i-ticket"/></svg> Willy Wonka KIDS</span>
+  <a class="donate-btn" href="#donate"><svg><use href="#i-heart"/></svg> Donate</a>
 </header>
 
 <main>
 
+  <!-- HERO -->
   <div class="hero">
-    <h1>Roald Dahl's<span class="wonka">Willy Wonka</span></h1>
+    <span class="spark s1"><svg><use href="#i-spark"/></svg></span>
+    <span class="spark s2"><svg><use href="#i-spark"/></svg></span>
+    <span class="spark s3"><svg><use href="#i-spark"/></svg></span>
+    <span class="spark s4"><svg><use href="#i-spark"/></svg></span>
+    <p class="pre kicker">Roald Dahl's</p>
+    <svg class="logo" viewBox="0 0 640 350" role="img" aria-label="Willy Wonka">
+      <defs>
+        <linearGradient id="goldgrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff2c4"/>
+          <stop offset=".32" stop-color="#fbdd7a"/>
+          <stop offset=".58" stop-color="#f0be44"/>
+          <stop offset=".8" stop-color="#e0a52c"/>
+          <stop offset="1" stop-color="#c98a1e"/>
+        </linearGradient>
+        <filter id="logoglow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#45d3d6" flood-opacity="0.75"/>
+          <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#0d0622" flood-opacity="0.5"/>
+        </filter>
+      </defs>
+      <g filter="url(#logoglow)" fill="url(#goldgrad)" stroke="#1c0e3a" stroke-width="6"
+         stroke-linejoin="round" paint-order="stroke" text-anchor="middle" font-size="168">
+        <text x="320" y="150">Willy</text>
+        <text x="320" y="320">Wonka</text>
+      </g>
+    </svg>
     <span class="kids">KIDS</span>
   </div>
 
-  <!-- TEAM & SPECIAL THANKS -->
-  <section class="card">
-    <h2 class="sec">The Team</h2>
-    <hr class="sec-rule">
-    <p class="team-role">Medina Minor, Kelly Pettigrew, Jessica Corpening</p>
-    <p class="team-role"><span class="label">Music Director</span> &nbsp;Robert Minor</p>
-    <p class="team-role"><span class="label">Set/Props</span> &nbsp;Leo Pettigrew, Ethan Whitenack</p>
-    <p class="team-role"><span class="label">Tech/Music</span> &nbsp;Charlie Honeycutt</p>
-
-    <span class="ensemble group" style="margin-top:20px;">Special Thanks</span>
-    <p class="team-role">The Pikaart and Minor Family who built the stage.</p>
-    <p class="team-role">Matt and Molly Minor for sound and art.</p>
-    <p class="team-role">David Miller for videography.</p>
-  </section>
-
-  <!-- MTI CREDITS -->
-  <section class="card credits">
-    <p><strong>Roald Dahl's Willy Wonka KIDS</strong><br>
-    is presented through special arrangement with<br>
-    and all authorized materials are supplied by<br>
-    <strong>Music Theatre International</strong>, New York, NY<br>
-    (212) 541-4684 &nbsp;·&nbsp; mtishows.com</p>
-    <hr class="sec-rule">
-    <p>Words and Music by<br><strong>Leslie Bricusse and Anthony Newley</strong></p>
-    <p>Adapted for the Stage by<br><strong>Leslie Bricusse and Timothy A. McDonald</strong></p>
-    <p>Based on the book<br><strong>Charlie and the Chocolate Factory</strong> by Roald Dahl</p>
-  </section>
-
   <!-- MUSICAL NUMBERS -->
   <section class="card">
-    <h2 class="sec">Musical Numbers</h2>
+    <h2 class="sec"><svg><use href="#i-note"/></svg> Musical Numbers</h2>
     <hr class="sec-rule">
     <ol class="songs">
-      <li><span class="title">Golden Age Of Chocolate</span><span class="who">Willy Wonka + Oompa Loompas</span></li>
-      <li><span class="title">The Candy Man</span><span class="who">James, Charlie, Matilda, Candy Man, Candy Man Kids</span></li>
-      <li><span class="title">Cheer Up, Charlie</span><span class="who">Mrs. Bucket</span></li>
-      <li><span class="title">(I've Got A) Golden Ticket</span><span class="who">Wonka, Charlie, Grandpa Joe, Grandma Josephina, Grandma Georgina, Grandpa George, Augustus Gloop, Mrs. Gloop, Veruca Salt, Mr. Salt, Violet Beauregarde, Mrs. Beauregarde, Mike Teavee, Ms. Teavee</span></li>
-      <li><span class="title">At the Gates (Pure Imagination)</span><span class="who">Wonka, Charlie, Grandpa Joe, Augustus Gloop, Mrs. Gloop, Veruca Salt, Mr. Salt, Violet Beauregarde, Mrs. Beauregarde, Mike Teavee, Ms. Teavee</span></li>
-      <li><span class="title">Factory Reveal Sequence</span><span class="who">Wonka, Charlie, Grandpa Joe, Augustus Gloop, Mrs. Gloop, Veruca Salt, Mr. Salt, Violet Beauregarde, Mrs. Beauregarde, Mike Teavee, Ms. Teavee</span></li>
-      <li><span class="title">Oompa-Loompa 1</span><span class="who">Oompa-Loompa Chorus, Augustus Gloop</span></li>
-      <li><span class="title">Oompa-Loompa 2</span><span class="who">Oompa-Loompa Chorus, Violet Beauregarde</span></li>
-      <li><span class="title">Burping Song</span><span class="who">Charlie, Grandpa Joe</span></li>
-      <li><span class="title">I Want It Now</span><span class="who">Veruca Salt</span></li>
-      <li><span class="title">Oompa-Loompa 3</span><span class="who">Oompa-Loompa Chorus, Veruca Salt, Squirrels</span></li>
-      <li><span class="title">Oompa-Loompa 4</span><span class="who">Oompa-Loompa Chorus, Mike Teavee</span></li>
-      <li><span class="title">Finale</span><span class="who">Full Cast</span></li>
+      <li><div class="song-no">1</div><div><div class="song-title">Golden Age Of Chocolate</div><div class="song-who">Willy Wonka + Oompa Loompas</div></div></li>
+      <li><div class="song-no">2</div><div><div class="song-title">The Candy Man</div><div class="song-who">James, Charlie, Matilda, Candy Man, Candy Man Kids</div></div></li>
+      <li><div class="song-no">3</div><div><div class="song-title">Cheer Up, Charlie</div><div class="song-who">Mrs. Bucket</div></div></li>
+      <li><div class="song-no">4</div><div><div class="song-title">(I've Got A) Golden Ticket</div><div class="song-who">Wonka, Charlie, Grandpa Joe, Grandma Josephina, Grandma Georgina, Grandpa George, Augustus Gloop, Mrs. Gloop, Veruca Salt, Mr. Salt, Violet Beauregarde, Mrs. Beauregarde, Mike Teavee, Ms. Teavee</div></div></li>
+      <li><div class="song-no">5</div><div><div class="song-title">At the Gates (Pure Imagination)</div><div class="song-who">Wonka, Charlie, Grandpa Joe, Augustus Gloop, Mrs. Gloop, Veruca Salt, Mr. Salt, Violet Beauregarde, Mrs. Beauregarde, Mike Teavee, Ms. Teavee</div></div></li>
+      <li><div class="song-no">6</div><div><div class="song-title">Factory Reveal Sequence</div><div class="song-who">Wonka, Charlie, Grandpa Joe, Augustus Gloop, Mrs. Gloop, Veruca Salt, Mr. Salt, Violet Beauregarde, Mrs. Beauregarde, Mike Teavee, Ms. Teavee</div></div></li>
+      <li><div class="song-no">7</div><div><div class="song-title">Oompa-Loompa 1</div><div class="song-who">Oompa-Loompa Chorus, Augustus Gloop</div></div></li>
+      <li><div class="song-no">8</div><div><div class="song-title">Oompa-Loompa 2</div><div class="song-who">Oompa-Loompa Chorus, Violet Beauregarde</div></div></li>
+      <li><div class="song-no">9</div><div><div class="song-title">Burping Song</div><div class="song-who">Charlie, Grandpa Joe</div></div></li>
+      <li><div class="song-no">10</div><div><div class="song-title">I Want It Now</div><div class="song-who">Veruca Salt</div></div></li>
+      <li><div class="song-no">11</div><div><div class="song-title">Oompa-Loompa 3</div><div class="song-who">Oompa-Loompa Chorus, Veruca Salt, Squirrels</div></div></li>
+      <li><div class="song-no">12</div><div><div class="song-title">Oompa-Loompa 4</div><div class="song-who">Oompa-Loompa Chorus, Mike Teavee</div></div></li>
+      <li><div class="song-no">13</div><div><div class="song-title">Finale</div><div class="song-who">Full Cast</div></div></li>
     </ol>
   </section>
 
   <!-- CAST -->
   <section class="card">
-    <h2 class="sec">Cast</h2>
+    <h2 class="sec"><svg><use href="#i-people"/></svg> Cast</h2>
     <hr class="sec-rule">
-    <p class="cast-note"><span>Student Name</span><span>Character</span></p>
-    <ul class="cast">
-      <li><span class="name">Sebastian Rose</span><span class="role">Willy Wonka</span></li>
-      <li><span class="name">Stuart Honeycutt</span><span class="role">Charlie</span></li>
-      <li><span class="name">Anna Corpening</span><span class="role">Mrs. Bucket <span class="fn">*</span></span></li>
-      <li><span class="name">Sylvia Pikaart</span><span class="role">Mr. Bucket <span class="fn">*</span></span></li>
-      <li><span class="name">Lyla Helm</span><span class="role">Grandma Josephina <span class="fn">*</span></span></li>
-      <li><span class="name">Mae Minor</span><span class="role">Grandma Georgina <span class="fn">*</span></span></li>
-      <li><span class="name">Ethan Xu</span><span class="role">Grandpa George <span class="fn">*</span></span></li>
-      <li><span class="name">Mahlon Barton</span><span class="role">Grandpa Joe</span></li>
-      <li><span class="name">Laura Patten</span><span class="role">Candy Man <span class="fn">*</span></span></li>
-      <li><span class="name">Noah Pettigrew</span><span class="role">Phineous Trout <span class="fn">*</span></span></li>
-      <li><span class="name">Annelise Patten</span><span class="role">Augustus Gloop</span></li>
-      <li><span class="name">Lucy Pettigrew</span><span class="role">Mrs. Gloop</span></li>
-      <li><span class="name">Zoe Minor</span><span class="role">Veruca Salt</span></li>
-      <li><span class="name">William Atkins</span><span class="role">Mr. Salt</span></li>
-      <li><span class="name">Elle Barton</span><span class="role">Violet Beauregarde</span></li>
-      <li><span class="name">Caroline Schneider</span><span class="role">Mrs. Beauregarde</span></li>
-      <li><span class="name">Ellie Grace Corpening</span><span class="role">Mike Teavee</span></li>
-      <li><span class="name">Charlotte Mae Thompson</span><span class="role">Mrs. Teavee</span></li>
-    </ul>
-
-    <span class="ensemble group">Candy Man Kids Ensemble</span>
-    <p class="cast-note" style="margin-top:8px;"><span>Student Name</span><span>Character</span></p>
-    <ul class="cast">
-      <li><span class="name">Marinus Pikaart <span class="fn">**</span></span><span class="role">James</span></li>
-      <li><span class="name">Hazel Bell <span class="fn">**</span></span><span class="role">Matilda</span></li>
-      <li><span class="name">Jane Posey <span class="fn">**</span></span><span class="role">Sophie</span></li>
-      <li><span class="name">Violet Helms <span class="fn">**</span></span><span class="role">Annie</span></li>
-      <li><span class="name">Sydney Whitenack <span class="fn">**</span></span><span class="role">Suzie</span></li>
-      <li><span class="name">Cal Perry <span class="fn">**</span></span><span class="role">Billy</span></li>
-      <li><span class="name">Evelyn Day <span class="fn">**</span></span><span class="role">Molly</span></li>
-      <li><span class="name">Millie Thompson <span class="fn">**</span></span><span class="role">Penny</span></li>
-      <li><span class="name">Maggie Pikaart <span class="fn">***</span></span><span class="role">Sally</span></li>
-      <li><span class="name">John Brooks <span class="fn">***</span></span><span class="role">Danny</span></li>
-      <li><span class="name">Brynna Helm <span class="fn">***</span></span><span class="role">Polly</span></li>
-    </ul>
-
-    <span class="ensemble group">Oompa-Loompa Ensemble</span>
-    <div class="ensemble">
-      <p>Henry Corpening (Oompa Loompa 1), Luke Barton (Oompa Loompa 2), Grant Schneider (Oompa Loompa 3), Abigail Wilkins, Callie Whitenack, Raegan Schultz, Julia Embry, Piper Pettigrew, Nora Helm, Mirabelle Chea</p>
+    <div class="cast-wrap">
+    <table class="cast">
+      <thead><tr><th>Student</th><th>Character</th></tr></thead>
+      <tbody>
+        <tr><td class="nm">Sebastian Rose</td><td class="rl">Willy Wonka</td></tr>
+        <tr><td class="nm">Stuart Honeycutt</td><td class="rl">Charlie</td></tr>
+        <tr><td class="nm">Anna Corpening</td><td class="rl">Mrs. Bucket <sup class="fn">*</sup></td></tr>
+        <tr><td class="nm">Sylvia Pikaart</td><td class="rl">Mr. Bucket <sup class="fn">*</sup></td></tr>
+        <tr><td class="nm">Lyla Helm</td><td class="rl">Grandma Josephina <sup class="fn">*</sup></td></tr>
+        <tr><td class="nm">Mae Minor</td><td class="rl">Grandma Georgina <sup class="fn">*</sup></td></tr>
+        <tr><td class="nm">Ethan Xu</td><td class="rl">Grandpa George <sup class="fn">*</sup></td></tr>
+        <tr><td class="nm">Mahlon Barton</td><td class="rl">Grandpa Joe</td></tr>
+        <tr><td class="nm">Laura Patten</td><td class="rl">Candy Man <sup class="fn">*</sup></td></tr>
+        <tr><td class="nm">Noah Pettigrew</td><td class="rl">Phineous Trout <sup class="fn">*</sup></td></tr>
+        <tr><td class="nm">Annelise Patten</td><td class="rl">Augustus Gloop</td></tr>
+        <tr><td class="nm">Lucy Pettigrew</td><td class="rl">Mrs. Gloop</td></tr>
+        <tr><td class="nm">Zoe Minor</td><td class="rl">Veruca Salt</td></tr>
+        <tr><td class="nm">William Atkins</td><td class="rl">Mr. Salt</td></tr>
+        <tr><td class="nm">Elle Barton</td><td class="rl">Violet Beauregarde</td></tr>
+        <tr><td class="nm">Caroline Schneider</td><td class="rl">Mrs. Beauregarde</td></tr>
+        <tr><td class="nm">Ellie Grace Corpening</td><td class="rl">Mike Teavee</td></tr>
+        <tr><td class="nm">Charlotte Mae Thompson</td><td class="rl">Mrs. Teavee</td></tr>
+      </tbody>
+    </table>
     </div>
 
-    <span class="ensemble group">Squirrel Ensemble</span>
-    <div class="ensemble">
+    <div class="subhead">Candy Man Kids Ensemble</div>
+    <div class="cast-wrap">
+    <table class="cast">
+      <thead><tr><th>Student</th><th>Character</th></tr></thead>
+      <tbody>
+        <tr><td class="nm">Marinus Pikaart <sup class="fn">**</sup></td><td class="rl">James</td></tr>
+        <tr><td class="nm">Hazel Bell <sup class="fn">**</sup></td><td class="rl">Matilda</td></tr>
+        <tr><td class="nm">Jane Posey <sup class="fn">**</sup></td><td class="rl">Sophie</td></tr>
+        <tr><td class="nm">Violet Helms <sup class="fn">**</sup></td><td class="rl">Annie</td></tr>
+        <tr><td class="nm">Sydney Whitenack <sup class="fn">**</sup></td><td class="rl">Suzie</td></tr>
+        <tr><td class="nm">Cal Perry <sup class="fn">**</sup></td><td class="rl">Billy</td></tr>
+        <tr><td class="nm">Evelyn Day <sup class="fn">**</sup></td><td class="rl">Molly</td></tr>
+        <tr><td class="nm">Millie Thompson <sup class="fn">**</sup></td><td class="rl">Penny</td></tr>
+        <tr><td class="nm">Maggie Pikaart <sup class="fn">***</sup></td><td class="rl">Sally</td></tr>
+        <tr><td class="nm">John Brooks <sup class="fn">***</sup></td><td class="rl">Danny</td></tr>
+        <tr><td class="nm">Brynna Helm <sup class="fn">***</sup></td><td class="rl">Polly</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="subhead">Oompa-Loompa Ensemble</div>
+    <div class="ensemble-block">
+      <p><span class="ensemble-lead">Henry Corpening</span> (Oompa Loompa 1), <span class="ensemble-lead">Luke Barton</span> (Oompa Loompa 2), <span class="ensemble-lead">Grant Schneider</span> (Oompa Loompa 3), Abigail Wilkins, Callie Whitenack, Raegan Schultz, Julia Embry, Piper Pettigrew, Nora Helm, Mirabelle Chea</p>
+    </div>
+
+    <div class="subhead">Squirrel Ensemble</div>
+    <div class="ensemble-block">
       <p>Emma Overman, Colgan Pikaart, Lydia Jones, Adelaide Cunningham, Calysta Quirino, Ellie Rose Schultz, Karis Overman, Eloise Thompson, Maggie Pikaart, John Brooks Perry, Brynna Helm, Makoto Chea, David Honeycutt</p>
     </div>
 
     <div class="footnotes">
-      <div><span class="fn">*</span> also appear in the Factory Reveal Sequence and as The Machine in Oompa Loompa 2</div>
-      <div><span class="fn">**</span> also appear as Oompa-Loompas</div>
-      <div><span class="fn">***</span> also appear as Squirrels</div>
+      <div><sup>*</sup><span>also appear in the Factory Reveal Sequence and as The Machine in Oompa Loompa 2</span></div>
+      <div><sup>**</sup><span>also appear as Oompa-Loompas</span></div>
+      <div><sup>***</sup><span>also appear as Squirrels</span></div>
     </div>
   </section>
 
+    <!-- TEAM & SPECIAL THANKS -->
+    <section class="card">
+      <h2 class="sec"><svg><use href="#i-star"/></svg> Team</h2>
+      <hr class="sec-rule">
+      <dl class="crew">
+        <dt>The Team</dt><dd>Medina Minor, Kelly Pettigrew, Jessica Corpening</dd>
+        <dt>Music Director</dt><dd>Robert Minor</dd>
+        <dt>Set / Props</dt><dd>Leo Pettigrew, Ethan Whitenack</dd>
+        <dt>Tech / Music</dt><dd>Charlie Honeycutt</dd>
+      </dl>
+      <div class="subhead">Special Thanks</div>
+      <p class="thanks">The Pikaart and Minor Family who built the stage.</p>
+      <p class="thanks">Matt and Molly Minor for sound and art.</p>
+      <p class="thanks">David Miller for videography.</p>
+    </section>
+  
+    <!-- MTI CREDITS -->
+    <section class="card credits">
+      <p class="big">Roald Dahl's Willy Wonka KIDS</p>
+      <p class="label">is presented through special arrangement with<br>
+        and all authorized materials are supplied by<br>
+        <span class="em">Music Theatre International</span>, New York, NY<br>
+        (212) 541-4684 &nbsp;·&nbsp; mtishows.com</p>
+      <hr class="sec-rule">
+      <p><span class="label">Words and Music by</span><br><span class="em">Leslie Bricusse and Anthony Newley</span></p>
+      <p><span class="label">Adapted for the Stage by</span><br><span class="em">Leslie Bricusse and Timothy A. McDonald</span></p>
+      <p><span class="label">Based on the book</span><br><span class="em">Charlie and the Chocolate Factory</span> by Roald Dahl</p>
+    </section>
+  
+
   <!-- DONATE -->
   <section class="card" id="donate">
+    <p class="kicker"><svg><use href="#i-spark"/></svg> Support the Show <svg><use href="#i-spark"/></svg></p>
     <h2 class="sec">Help Cover the Show</h2>
     <hr class="sec-rule">
-    <p>Costumes, sets, props, and licensing all add up. If you're able,
-       a gift of any size helps cover the costs of putting on the show —
-       thank you!</p>
+    <p>Costumes, sets, props, and licensing all add up. If you're able, a gift of any size
+       helps cover the costs of putting on the show — thank you!</p>
     <div class="qr-card">
       <svg viewBox="0 0 33 33" role="img" aria-label="Venmo QR code for @marc-minor"><path stroke="#1a120b" fill="none" d="M2 2.5h7m1 0h2m2 0h2m2 0h5m1 0h7m-29 1h1m5 0h1m2 0h3m4 0h2m2 0h1m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m2 0h1m1 0h2m1 0h1m3 0h1m3 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h1m3 0h3m1 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h4m1 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m1 0h1m1 0h2m4 0h2m2 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-20 1h1m2 0h2m1 0h2m1 0h1m1 0h1m-20 1h7m2 0h2m1 0h5m5 0h2m3 0h1m-28 1h2m6 0h1m1 0h2m4 0h4m1 0h5m1 0h1m-28 1h4m1 0h2m2 0h1m5 0h1m3 0h7m-24 1h2m2 0h2m2 0h1m2 0h3m3 0h3m1 0h2m1 0h1m-28 1h1m2 0h2m1 0h1m1 0h2m3 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h4m-27 1h2m1 0h1m2 0h1m1 0h1m2 0h2m2 0h6m1 0h2m1 0h2m-29 1h3m2 0h2m1 0h4m2 0h4m3 0h1m1 0h1m3 0h1m-28 1h1m1 0h1m1 0h2m2 0h4m1 0h1m5 0h4m1 0h2m-26 1h1m2 0h1m2 0h1m1 0h1m5 0h2m1 0h1m7 0h2m1 0h1m-29 1h4m3 0h1m1 0h2m4 0h3m1 0h7m1 0h2m-29 1h1m3 0h3m1 0h4m5 0h1m2 0h1m1 0h4m-26 1h1m1 0h1m1 0h1m2 0h1m4 0h1m1 0h1m1 0h1m3 0h1m1 0h2m3 0h2m-29 1h1m2 0h8m3 0h1m2 0h8m1 0h1m1 0h1m-21 1h1m1 0h1m2 0h2m1 0h1m1 0h3m3 0h2m1 0h2m-29 1h7m1 0h5m2 0h6m1 0h1m1 0h1m-25 1h1m5 0h1m1 0h3m1 0h2m4 0h3m3 0h2m2 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h1m1 0h7m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h3m1 0h4m1 0h5m1 0h1m1 0h2m-27 1h1m1 0h3m1 0h1m1 0h6m1 0h1m1 0h1m1 0h9m-28 1h1m5 0h1m1 0h3m3 0h2m2 0h1m1 0h2m2 0h2m1 0h1m-28 1h7m3 0h2m3 0h1m1 0h1m4 0h1m1 0h1m1 0h1"/></svg>
     </div>
     <div>
-      <a class="venmo-link" href="https://venmo.com/u/marc-minor">Donate on Venmo · <span class="handle">@marc-minor</span></a>
+      <a class="venmo-link" href="https://venmo.com/u/marc-minor"><svg><use href="#i-heart"/></svg> Donate on Venmo · @marc-minor</a>
     </div>
     <p style="font-size:13px;margin-top:14px;">Scan the code or tap the button to open Venmo.</p>
   </section>
